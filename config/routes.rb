@@ -1,5 +1,9 @@
 Jets.application.routes.draw do
-  root "jets/public#show"
+  get 'click_transactions/json',      to: 'click_transactions#json'
+  get 'click_transactions/csv',       to: 'click_transactions#csv'
+
+  get 'conversion_transactions/json', to: 'conversion_transactions#json'
+  get 'conversion_transactions/csv',  to: 'conversion_transactions#csv'
 
   # The jets/public#show controller can serve static utf8 content out of the public folder.
   # Note, as part of the deploy process Jets uploads files in the public folder to s3

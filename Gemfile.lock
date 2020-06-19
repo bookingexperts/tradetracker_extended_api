@@ -36,6 +36,9 @@ GEM
       zeitwerk (~> 2.2, >= 2.2.2)
     addressable (2.7.0)
       public_suffix (>= 2.0.2, < 5.0)
+    akami (1.3.1)
+      gyoku (>= 0.4.0)
+      nokogiri
     aws-eventstream (1.1.0)
     aws-mfa-secure (0.4.2)
       activesupport
@@ -89,7 +92,7 @@ GEM
       aws-eventstream (~> 1, >= 1.0.2)
     aws_config (0.1.0)
     builder (3.2.4)
-    byebug (11.1.3)
+    byebug (11.1.2)
     capybara (3.32.2)
       addressable
       mini_mime (>= 0.1.3)
@@ -103,6 +106,7 @@ GEM
       memoist
       rainbow
     cfnresponse (0.4.0)
+    coderay (1.1.3)
     concurrent-ruby (1.1.6)
     crass (1.0.6)
     diff-lcs (1.3)
@@ -115,7 +119,12 @@ GEM
     gems (1.2.0)
     globalid (0.4.2)
       activesupport (>= 4.2.0)
+    gyoku (1.3.1)
+      builder (>= 2.1.2)
     hashie (4.1.0)
+    httpi (2.4.4)
+      rack
+      socksify
     i18n (1.8.3)
       concurrent-ruby (~> 1.0)
     jetpacker (0.4.2)
@@ -177,12 +186,15 @@ GEM
     mini_mime (1.0.2)
     mini_portile2 (2.4.0)
     minitest (5.14.1)
-    mysql2 (0.5.3)
     nio4r (2.5.2)
     nokogiri (1.10.9)
       mini_portile2 (~> 2.4.0)
+    nori (2.6.0)
+    pry (0.13.1)
+      coderay (~> 1.1)
+      method_source (~> 1.0)
     public_suffix (4.0.5)
-    puma (4.3.5)
+    puma (4.3.3)
       nio4r (~> 2.0)
     rack (2.2.3)
     rack-proxy (0.6.5)
@@ -218,13 +230,25 @@ GEM
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.9.0)
     rspec-support (3.9.3)
+    savon (2.12.0)
+      akami (~> 1.2)
+      builder (>= 2.1.2)
+      gyoku (~> 1.2)
+      httpi (~> 2.3)
+      nokogiri (>= 1.8.1)
+      nori (~> 2.4)
+      wasabi (~> 3.4)
     shotgun (0.9.2)
       rack (>= 1.0)
+    socksify (1.7.1)
     text-table (1.2.4)
     thor (1.0.1)
     thread_safe (0.3.6)
     tzinfo (1.2.7)
       thread_safe (~> 0.1)
+    wasabi (3.5.0)
+      httpi (~> 2.0)
+      nokogiri (>= 1.4.2)
     xpath (3.2.0)
       nokogiri (~> 1.8)
     zeitwerk (2.3.0)
@@ -233,16 +257,17 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  byebug
+  byebug (= 11.1.2)
   capybara
   dynomite
   jetpacker
   jets
   launchy
-  mysql2 (~> 0.5.2)
-  puma
+  pry
+  puma (= 4.3.3)
   rack
   rspec
+  savon (~> 2.0)
   shotgun
 
 BUNDLED WITH
