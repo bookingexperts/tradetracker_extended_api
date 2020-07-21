@@ -12,6 +12,7 @@ class ApplicationController < Jets::Controller::Base
 
   def hash_to_csv(array_of_hashes)
     csv_string = CSV.generate do |csv|
+      csv << array_of_hashes.first.keys
       array_of_hashes.each do |hash|
         csv << hash.values
       end

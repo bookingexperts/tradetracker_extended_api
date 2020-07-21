@@ -52,9 +52,11 @@ class Tradetracker
   def fetch_click_transactions(from: Date.today - 7, to: Date.today)
     transactions = []
     client.call(:get_click_transactions, message: {
-      campaignID:           campaign_id,
-      registrationDateFrom: from.to_s,
-      registrationDateTo:   to.to_s
+      campaignID: campaign_id,
+      options: {
+        registrationDateFrom: from.to_s,
+        registrationDateTo: to.to_s
+      }
     }).tap do |transactions_response|
       transactions_response.body[:get_click_transactions_response][:click_transactions][:item].each do |transaction|
         transactions << transaction.slice(
@@ -65,8 +67,8 @@ class Tradetracker
           :commission,
           :ip,
           :referer_url,
-          :registration_date
         ).merge(
+          registration_date:   transaction[:registration_date].strftime('%Y-%m-%d %H:%M:%S'),
           affiliate_site_id:   transaction[:affiliate_site][:id],
           affiliate_site_url:  transaction[:affiliate_site][:url],
           affiliate_site_name: transaction[:affiliate_site][:name]
@@ -79,9 +81,11 @@ class Tradetracker
   def fetch_conversion_transactions(from: Date.today - 7, to: Date.today)
     transactions = []
     client.call(:get_conversion_transactions, message: {
-      campaignID:           campaign_id,
-      registrationDateFrom: from.to_s,
-      registrationDateTo:   to.to_s
+      campaignID: campaign_id,
+      options: {
+        registrationDateFrom: from.to_s,
+        registrationDateTo: to.to_s
+      }
     }).tap do |conversions_response|
       conversions_response.body[:get_conversion_transactions_response][:conversion_transactions][:item].each do |transaction|
         transactions << transaction.slice(
@@ -96,21 +100,21 @@ class Tradetracker
           :commission,
           :order_amount,
           :ip,
-          :registration_date,
-          :assessment_date,
           :click_to_conversion,
-          :originating_click_date,
           :rejection_reason,
           :country_code
         ).merge(
-          campaign_product_id:   transaction[:campaign_product][:id],
-          campaign_product_name: transaction[:campaign_product][:name],
-          campaign_id:           transaction[:campaign][:id],
-          campaign_name:         transaction[:campaign][:name],
-          campaign_url:          transaction[:campaign][:url],
-          affiliate_site_id:     transaction[:affiliate_site][:id],
-          affiliate_site_url:    transaction[:affiliate_site][:url],
-          affiliate_site_name:   transaction[:affiliate_site][:name]
+          originating_click_date: transaction[:originating_click_date].strftime('%Y-%m-%d %H:%M:%S'),
+          registration_date:      transaction[:registration_date].strftime('%Y-%m-%d %H:%M:%S'),
+          assessment_date:        transaction[:assessment_date].strftime('%Y-%m-%d %H:%M:%S'),
+          campaign_product_id:    transaction[:campaign_product][:id],
+          campaign_product_name:  transaction[:campaign_product][:name],
+          campaign_id:            transaction[:campaign][:id],
+          campaign_name:          transaction[:campaign][:name],
+          campaign_url:           transaction[:campaign][:url],
+          affiliate_site_id:      transaction[:affiliate_site][:id],
+          affiliate_site_url:     transaction[:affiliate_site][:url],
+          affiliate_site_name:    transaction[:affiliate_site][:name]
         )
       end
     end
