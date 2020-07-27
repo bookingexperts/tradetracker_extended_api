@@ -58,7 +58,7 @@ class Tradetracker
         registrationDateTo: to.to_s
       }
     }).tap do |transactions_response|
-      transactions_response.body[:get_click_transactions_response][:click_transactions][:item].each do |transaction|
+      Array.wrap(transactions_response.body[:get_click_transactions_response][:click_transactions][:item]).each do |transaction|
         transactions << transaction.slice(
           :id,
           :transaction_type,
@@ -87,7 +87,7 @@ class Tradetracker
         registrationDateTo: to.to_s
       }
     }).tap do |conversions_response|
-      conversions_response.body[:get_conversion_transactions_response][:conversion_transactions][:item].each do |transaction|
+      Array.wrap(conversions_response.body[:get_conversion_transactions_response][:conversion_transactions][:item]).each do |transaction|
         transactions << transaction.slice(
           :id,
           :transaction_type,
