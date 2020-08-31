@@ -68,7 +68,7 @@ class Tradetracker
           :ip,
           :referer_url,
         ).merge(
-          registration_date:   transaction[:registration_date].strftime('%Y-%m-%d %H:%M:%S'),
+          registration_date:   transaction[:registration_date]&.strftime('%Y-%m-%d %H:%M:%S'),
           affiliate_site_id:   transaction[:affiliate_site][:id],
           affiliate_site_url:  transaction[:affiliate_site][:url],
           affiliate_site_name: transaction[:affiliate_site][:name]
@@ -104,9 +104,9 @@ class Tradetracker
           :rejection_reason,
           :country_code
         ).merge(
-          originating_click_date: transaction[:originating_click_date].strftime('%Y-%m-%d %H:%M:%S'),
-          registration_date:      transaction[:registration_date].strftime('%Y-%m-%d %H:%M:%S'),
-          assessment_date:        transaction[:assessment_date].strftime('%Y-%m-%d %H:%M:%S'),
+          originating_click_date: transaction[:originating_click_date]&.strftime('%Y-%m-%d %H:%M:%S'),
+          registration_date:      transaction[:registration_date]&.strftime('%Y-%m-%d %H:%M:%S'),
+          assessment_date:        transaction[:assessment_date]&.strftime('%Y-%m-%d %H:%M:%S'),
           campaign_product_id:    transaction[:campaign_product][:id],
           campaign_product_name:  transaction[:campaign_product][:name],
           campaign_id:            transaction[:campaign][:id],
